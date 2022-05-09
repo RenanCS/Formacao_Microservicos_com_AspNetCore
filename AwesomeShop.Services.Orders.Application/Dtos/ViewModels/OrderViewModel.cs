@@ -18,7 +18,7 @@ namespace AwesomeShop.Services.Orders.Application.Dtos.ViewModels
         public DateTime CreatedAt { get; private set; }
         public string Status { get; private set; }
 
-        public static OrderViewModel FactoryOrderViewModelFromEntity(Order order)
+        public static OrderViewModel FactoryOrderToOrderViewModel(Order order)
         {
             return new OrderViewModel(order.Id, order.TotalPrice, order.CreateAt, order.Status.ToString());
         }
