@@ -18,7 +18,7 @@ namespace AwesomeShop.Services.Orders.Application.Queries.Handlers
         {
             var order = await _orderRepository.GetByIdAsync(request.Id);
 
-            var orderViewModel = OrderViewModel.FactoryOrderViewModelFromEntity(order);
+            var orderViewModel = OrderViewModel.FactoryOrderToOrderViewModel(order);
 
             return orderViewModel;
         }
