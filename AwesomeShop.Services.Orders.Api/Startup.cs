@@ -1,3 +1,4 @@
+using AwesomeShop.Services.Orders.Application.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +21,7 @@ namespace AwesomeShop.Services.Orders.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddHandlers();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
