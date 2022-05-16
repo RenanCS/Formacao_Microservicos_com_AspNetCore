@@ -8,5 +8,7 @@ services:
       dockerfile: AwesomeShop.Services.Orders.Api/Dockerfile
     environment:
       TZ: America/Sao_Paulo
+      ASPNETCORE_ENVIRONMENT: Development 
     ports:
       - "5006:80"
+      - "5007:443"
