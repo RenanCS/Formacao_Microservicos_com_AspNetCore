@@ -1,28 +1,34 @@
 ﻿using AwesomeShop.Services.Orders.Core.Entities;
 using AwesomeShop.Services.Orders.Core.Repositories;
+using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AwesomeShop.Services.Orders.Infrastructure.Persistence.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
-        public Task AddAsync(Order order)
+        private readonly IMongoCollection<Order> _mongoCollection;
+        public OrderRepository(IMongoDatabase mongoDatabase)
         {
-            throw new NotImplementedException();
+            _mongoCollection = mongoDatabase.GetCollection<Order>("orders");
         }
 
-        public Task<Order> GetByIdAsync(Guid id)
+        public async Task AddAsync(Order order)
         {
-            throw new NotImplementedException();
+            await _mongoCollection.InsertOneAsync(order);
         }
 
-        public Task UpdateAsync(Order order)
+        public async Task<Order> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _mongoCollection
+                .Find(c => c.Id == id)
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task UpdateAsync(Order order)
+        {
+            await _mongoCollection.ReplaceOneAsync(c => c.Id == order.Id, order);
         }
     }
 }
