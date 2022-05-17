@@ -1,4 +1,5 @@
 ﻿using AwesomeShop.Services.Orders.Application.Dtos.InputModels;
+using AwesomeShop.Services.Orders.Application.Subscribers;
 using AwesomeShop.Services.Orders.Core.Repositories;
 using AwesomeShop.Services.Orders.Infrastructure.Persistence.Repositories;
 using MediatR;
@@ -18,5 +19,12 @@ namespace AwesomeShop.Services.Orders.Application.Helpers
             services.AddMediatR(typeof(AddOrderCommand));
             return services;
         }
+
+        public static IServiceCollection AddSubscribers(this IServiceCollection services)
+        {
+            services.AddHostedService<PaymentAcceptedSubscriber>();
+            return services;
+        }
+
     }
 }
