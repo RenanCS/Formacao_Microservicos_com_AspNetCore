@@ -22,11 +22,13 @@ namespace AwesomeShop.Services.Orders.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
+            .AddRedisCache()
             .AddMessageBus()
             .AddMongo()
             .AddInfrastructure()
             .AddHandlers()
-            .AddSubscribers();
+            .AddSubscribers()
+            .AddConsulConfiguration(Configuration);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -49,7 +51,9 @@ namespace AwesomeShop.Services.Orders.Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
+
+            app.UseConsul();
 
             app.UseEndpoints(endpoints =>
             {
