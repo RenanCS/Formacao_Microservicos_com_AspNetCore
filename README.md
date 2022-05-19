@@ -18,17 +18,16 @@
 ## 💻 Sobre o projeto
 
 O projeto consiste em criar uma estrutura de microsserviços em backend para uma loja, seguindo padrões do clean code:
-- Arquitetura Limpa
-- Swagger
-- Entity Framework Core
-- Padrão CQRS com Mediator
-- RabbitMQ
-
----
-
-## ⚙️ Funcionalidades
-- [] ....
-
+✅ Arquitetura Limpa
+✅ Arquitetura Orientada a Eventos
+✅ Camadas -> Core, Infrastructure, Application, API
+✅ Padrão CQRS com Mediator
+✅ MongoDB
+✅ Radis
+✅ RabbitMQ
+✅ Service Discovery
+✅ Consul
+✅ Api Gateway com Ocelot
 
 ---
 
@@ -37,7 +36,7 @@ O projeto consiste em criar uma estrutura de microsserviços em backend para uma
 ### Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-[RabbitMQ](https://www.rabbitmq.com/), [.Net core](https://dotnet.microsoft.com/en-us/download/dotnet/5.0).
+ [.Net core](https://dotnet.microsoft.com/en-us/download/dotnet/5.0).
 Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/), [Visuall Studio](https://visualstudio.microsoft.com/pt-br/downloads/)
 
 
@@ -53,6 +52,11 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 - **[.NET](https://dotnet.microsoft.com/en-us/)**
 - **[Swagger](https://dotnet.microsoft.comhttps://swagger.io/)**
 - **[RabbitMQ](https://www.rabbitmq.com/)**
+- **[Consul](https://www.consul.io/)**
+- **[Ocelot](https://ocelot.readthedocs.io/en/latest/introduction/gettingstarted.html)**
+- **[MongoDb](https://www.mongodb.com/)**
+- **[Redis](https://redis.io/)**
+
 
 
 
