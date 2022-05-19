@@ -1,7 +1,12 @@
-﻿using AwesomeShop.Services.Orders.Infrastructure.db.mongo;
+﻿using AwesomeShop.Services.Orders.Infrastructure.CacheStorage;
+using AwesomeShop.Services.Orders.Infrastructure.db.mongo;
 using AwesomeShop.Services.Orders.Infrastructure.MessageBus;
+using AwesomeShop.Services.Orders.Infrastructure.ServiceDiscovery;
+using Consul;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using RabbitMQ.Client;
@@ -59,6 +64,63 @@ namespace AwesomeShop.Services.Orders.Infrastructure
 
             services.AddSingleton(new ProducerConnection(connection));
             services.AddSingleton<IMessageBusCllient, MessageBusCllient>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddConsulConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
+            {
+                var address = configuration.GetSection("Consul:Host");
+                consulConfig.Address = new Uri(address.Value);
+            }));
+
+            services.AddTransient<IServiceDiscoveryService, ConsulService>();
+
+            return services;
+        }
+
+        public static IApplicationBuilder UseConsul(this IApplicationBuilder app)
+        {
+            var consulClient = app.ApplicationServices.GetRequiredService<IConsulClient>();
+            var lifeTime = app.ApplicationServices.GetRequiredService<IHostApplicationLifetime>();
+
+            var registration = new AgentServiceRegistration
+            {
+                ID = $"order-service-{Guid.NewGuid()}",
+                Name = "OrderServices",
+                Address = "localhost",
+                Port = 5003
+            };
+
+            // Realizar o deregistrar
+            consulClient.Agent.ServiceDeregister(registration.ID).ConfigureAwait(true);
+            // Realizar o registro
+            consulClient.Agent.ServiceRegister(registration).ConfigureAwait(true);
+
+            Console.WriteLine("Service ORDER registed in Consul");
+
+            // Quando a aplicação parar o sistema vai deregistrar
+            lifeTime.ApplicationStopped.Register(() =>
+            {
+                consulClient.Agent.ServiceDeregister(registration.ID).ConfigureAwait(true);
+
+                Console.WriteLine("Service ORDER deregisted in Consul");
+            });
+
+            return app;
+        }
+
+        public static IServiceCollection AddRedisCache(this IServiceCollection services)
+        {
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.InstanceName = "OrdersCache";
+                options.Configuration = "localhost:6379";
+            });
+
+            services.AddTransient<ICacheService, RedisService>();
 
             return services;
         }
