@@ -3,7 +3,7 @@
 </h1>
 
 <h4 align="center">
-	🚧  Awesome Shop ♻️ Em Andamento 🚀 🚧
+	🚧  Awesome Shop ♻️ Concluído 🚀 🚧
 </h4>
 
 <p align="center">
