@@ -38,6 +38,7 @@ O projeto consiste em criar uma estrutura de microsserviços em backend para uma
 ✅ Consul
 
 ✅ Api Gateway com Ocelot
+
 ---
 
 ## 🚀 Como executar o projeto
