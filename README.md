@@ -18,17 +18,26 @@
 ## 💻 Sobre o projeto
 
 O projeto consiste em criar uma estrutura de microsserviços em backend para uma loja, seguindo padrões do clean code:
-✅ Arquitetura Limpa
-✅ Arquitetura Orientada a Eventos
-✅ Camadas -> Core, Infrastructure, Application, API
-✅ Padrão CQRS com Mediator
-✅ MongoDB
-✅ Radis
-✅ RabbitMQ
-✅ Service Discovery
-✅ Consul
-✅ Api Gateway com Ocelot
 
+✅ Arquitetura Limpa
+
+✅ Arquitetura Orientada a Eventos
+
+✅ Camadas -> Core, Infrastructure, Application, API
+
+✅ Padrão CQRS com Mediator
+
+✅ MongoDB
+
+✅ Radis
+
+✅ RabbitMQ
+
+✅ Service Discovery
+
+✅ Consul
+
+✅ Api Gateway com Ocelot
 ---
 
 ## 🚀 Como executar o projeto
